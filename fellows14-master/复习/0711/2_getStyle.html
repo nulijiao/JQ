@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--首先今天的补充就是能力测试中在不同浏览器中取得的dom对象的样式，所以我们使用到currentStyle和getComputedStyle这两个属性，然后就会有产生的读取到非设置的内联样式也可以，不过呢这些只能读取，不可以设置-->
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        #div1{
+            width: 600px;
+            height: 600px;
+            background: #00ff00;
+            /*border: 5px solid #000;*/
+            /*padding: 10px;*/
+            /*margin: 10px;*/
+        }
+    </style>
+</head>
+<body>
+<!--&lt;!&ndash;<div id="gg" style="width: 1000px;">&ndash;&gt;-->
+    <!--</div>&ndash;&gt;-->
+<div id="div1">123</div>
+    <script>
+        var oDiv = document.getElementById('div1');
+//        console.log(  window.getComputedStyle(oDiv, false).width  );
+//        console.log(  oDiv.currentStyle.width  );
+//        console.log(oDiv.offsetWidth);
+
+        /**
+         * 获取当前元素样式
+         * @param elem
+         * @param attr
+         * @return {*}
+         */
+
+        function getStyle(elem, attr) {
+            if(elem.currentStyle)
+            {//IE
+                return elem.currentStyle[attr];
+            }else if(window.getComputedStyle){//火狐等浏览器
+                return getComputedStyle(elem, false)[attr];
+            }else{
+                return elem.style[attr];
+            }
+        }
+        //trueCss(oDiv,'width','50%');
+//       function trueCss(elem,attr,value)
+        //       {
+        //
+        //           if(isNaN(parseInt(value)))
+        //           elem.style[attr]=value;
+        //
+        //           else
+        //
+        //            {
+        //                   if(/\%/.test(value))
+        //                   {
+        //
+        //
+        //                       console.log('test');
+        //
+        //                       elem.style[attr]=value;
+        //                       console.log( getStyle(elem, attr) );
+        //                   }
+        //                    else
+        //                 { console.log('px'  );
+        //                   elem.style[attr]=parseInt(value)+'px';
+        //                   console.log( getStyle(elem, attr) );
+        //                 }
+        //           }
+        //
+        //       }
+         css1(oDiv, {
+        width: 300,
+            height: '300px',
+            background: '#000'
+        });
+        function css1(elem,attr,value)
+        {
+            if(value)
+            {
+                if(isNaN(parseInt(value)))
+                    elem.style[attr]=value;
+
+                else
+
+                {
+                    if(/\%/.test(value))
+                    {
+
+
+                        console.log('test');
+
+                        elem.style[attr]=value;
+                        console.log( getStyle(elem, attr) );
+                    }
+                    else
+                    { console.log('px'  );
+                        elem.style[attr]=parseInt(value)+'px';
+                        console.log( getStyle(elem, attr) );
+                    }
+                }
+            }
+
+            else
+            {
+                if(typeof(attr)==="string")
+                {
+                    console.log(getStyle(elem, attr));
+                }
+                else//是一个对象的话
+                {    for(var p in attr)
+                  {
+
+                    if(isNaN(parseInt(attr[p])))
+                        elem.style[p]=attr[p];
+
+                    else
+
+                    {
+                        if(/\%/.test(p))
+                        {
+
+
+                            console.log('test');
+
+                            elem.style[p]=attr[p];
+                            //console.log( getStyle(elem, attr) );
+                        }
+                        else
+                        { console.log('px'  );
+                            elem.style[p]=parseInt(attr[p])+'px';
+                            //console.log( getStyle(elem, attr) );
+                        }
+                    }
+
+                  }
+
+                }
+
+
+            }
+
+
+        }
+//        function css(elem,attr,value) {
+//            if (value)
+//            {
+//                if(isNaN(parseInt(value)))
+//                elem.style[attr] = value;
+//
+//
+//                    if (/\%/.test(value))
+//                    {
+//                        console.log(value.match('%'));
+//
+//
+//                        //console.log(/\%/.test(value));
+//
+//                        elem.style[attr] = value;
+//                        console.log(elem.style[attr]);
+//                    }
+//                    if(parseInt(value))
+//                    {
+//                        elem.style[attr] = parseInt(value) + 'px';
+//                    }
+//
+//                 }
+//            else{
+//                if(typeof (attr)==="string")
+//                  {
+//                    console.log(elem.style[attr]);
+//                    return elem.style[attr];
+//                  }
+//            }
+//        }
+        function css(elem,attr,value)
+        {
+            if(value)
+            {
+                if(/\%/.test(value))
+                {
+                    console.log(/\%/.test(value));
+                    elem.style[attr]=value;
+
+                }
+                else if(isNaN(parseInt(value)))//利用了颜色转换成整型是NaN
+                {
+                    elem.style[attr]=value;
+                }
+                else(parseInt(value))
+                {
+                    elem.style[attr]=parseInt(value)+'px';
+                }
+
+            }
+
+        }
+//        function css(elem, attr, value)
+//      }  {
+//            if(value)
+//            {//如果给value传了值
+//                elem.style[attr] = value;
+//                console.log( elem.style[attr] );
+//            }
+//            else{
+//                if(typeof attr === 'string'){
+//                    return getStyle(elem, attr);
+//                }
+//
+//
+//////                        if(parseInt(attr[p])==NaN)//因为颜色会返回一个NaN因为是一个#000这样parseint是不能返回一个正确类型的，
+////                        {
+////
+////                        }
+//
+//                        else {
+//                           for(var p in attr)
+//                           {
+//                               switch (p) {
+//                                   case 'width':
+//                                   case 'height':
+//                                   case 'padding':
+//                                   case 'paddingLeft':
+//                                   case 'paddingRight':
+//                                   case 'paddingTop':
+//                                   case 'paddingBottom':
+//                                       value = /\%/.test(attr[p]) ? attr[p] : Math.max(parseInt(attr[p]), 0) + 'px';
+//                                       break;
+//                                   case 'left':
+//                                   case 'top':
+//                                   case 'bottom':
+//                                   case 'right':
+//                                   case 'margin':
+//                                   case 'marginLeft':
+//                                   case 'marginRight':
+//                                   case 'marginTop':
+//                                   case 'marginBottom':
+//                                       value = /\%/.test(attr[p]) ? attr[p] : parseInt(attr[p]) + 'px';
+//                                       break;
+//                                   default:
+//                                       value = attr[p];
+//                               }
+//                           }
+//
+//                        }
+//                        elem.style[p] = value;
+//                    }
+//
+//
+//        }
+
+    </script>
+</body>
+</html>
