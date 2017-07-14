@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>my JQ</title>
+</head>
+<body>
+
+</body>
+<script>
+
+
+    //几乎在所有的js中设置函数中除了对象尤其是设置样式多为字符串形式传入
+function clone(obj) {
+    var newObj={};
+    for(var p in obj)
+    {
+        if(typeof (obj[p])==='object')
+            newObj[p]=clone(obj[p]);//之前自己是有忘记写了newObj[p]=,发现调用以后就会有只是复制对象，然后没有给newobj[p]赋值估计就是大脑短路了当时。
+
+        else
+            newObj[p]=obj[p];
+    }
+    return newObj;
+}
+      function getFather(elem) {
+         return  elem.parentNode;
+      }
+    function getStyle(elem, attr) {
+        if(elem.currentStyle){//IE
+            return elem.currentStyle[attr];
+        }else if(window.getComputedStyle){
+            return getComputedStyle(elem, false)[attr];
+        }else{
+            return elem.style[attr];
+        }
+    }
+    function css(elem,attr,value)
+    {
+        if(value)
+        {
+            if(isNaN(parseInt(value)))
+                elem.style[attr]=value;
+
+            else
+
+            {
+                if(/\%/.test(value))
+                {
+
+
+                    console.log('test');
+
+                    elem.style[attr]=value;
+                    console.log( getStyle(elem, attr) );
+                }
+                else
+                { console.log('px'  );
+                    elem.style[attr]=parseInt(value)+'px';
+                    console.log( getStyle(elem, attr) );
+                }
+            }
+        }
+
+        else
+        {
+            if(typeof(attr)==="String")
+            {
+                console.log(getStyle(elem, attr));
+            }
+            else//是一个对象的话
+            {    for(var p in attr)
+            {
+
+                if(isNaN(parseInt(attr[p])))
+                    elem.style[p]=attr[p];
+
+                else
+
+                {
+                    if(/\%/.test(p))
+                    {
+
+
+                        console.log('test');
+
+                        elem.style[p]=attr[p];
+                        //console.log( getStyle(elem, attr) );
+                    }
+                    else
+                    { console.log('px'  );
+                        elem.style[p]=parseInt(attr[p])+'px';
+                        //console.log( getStyle(elem, attr) );
+                    }
+                }
+
+            }
+
+            }
+
+
+        }
+
+
+    }
+
+
+    function $(selectors,context) {
+        var element;
+        var elements = [];
+        context = context || document;
+        switch (selectors.charAt(0)) {
+            case'#':
+                element = [context.getElementById(selectors.substring(0))];
+                break;
+
+
+            case'.':
+                elements = context.getElementById(selectors.substring(0));
+
+                break;
+            default:
+                elements = context.getElementsByTagName(selectors);
+
+                break;
+
+
+        }
+        return
+        //返回某个对象，利用写函数方法来实现点击操作但是并不是在底层识别是否是这样的操作，而是如果判断是那个元素就要利用addeventlistener底层函数来判断这么多元素里面的哪一个才是被点击了从而做出反应
+        {
+
+            click:   function fb(fn) {
+                for (var i = 0; i < elements.length; i++) {
+                    addEvent('click', elements[i], fn);
+                }
+                return this;//为了可以链式操作因为返回了这个对象就会产生还可以继续.函数的操作这样就形成了jquery的链式操作
+
+            }
+
+            mouseover:  function fa(fn) {
+
+                for (var i = 0; i < elements.length; i++) {
+                    addEvent('mouseover', elements[i], fn);
+                }
+                return this;//为了可以链式操作因为返回了这个对象就会产生还可以继续.函数的操作这样就形成了jquery的链式操作
+
+            }//所有DOM对象数组都要时间注册才能根据动作产生相应函数方法
+
+            mouseout:   function fc(fn) {
+                for (var i = 0; i < elements.length; i++) {
+                    addEvent('mouseout', elements[i], fn);
+                }
+                return this;
+            }
+            //这里的对象并不是我们说的dom对象就是一个普通的拥有这些方法的对象，还可以访问获取的dom对象来进行对dom对象的操作
+
+            nextbrother:    function fd() {
+                //默认是第一个元素的兄弟
+
+                next(elements);
+            }//dom元素的下一个兄弟结点
+
+
+            previ:   function fe() {
+                //var elems=elements[0];//默认是第一个元素的兄弟
+
+                prev(elements);
+            }//dom对象的前一个兄弟结点
+
+
+            lastone: function ff() {
+                for (var i = 0; i < elements.length; i++)
+                {
+                    elements[i] = elements[i].lastChild;
+                    console.log(elements && elements[i].nodeType == 1 ? elem : prev(elements[i]));
+                }
+            }//DOM对象的最后一个孩子节点
+            firstone: function o() {
+                for(var i=0;i<elements.length;i++)
+                {
+                    console.log(first(elements[i]));
+                }
+
+
+            }//dom对象的第一个孩子节点
+            beforeIn:  function  i(newNode) {
+                for(var i=0;i<elements.length;i++)
+                {
+                    before(elements[i], newNode)
+                }
+
+
+            }
+
+            afterIn:   function pk(newNode) {
+                for(var i=0;i<elements.length;i++)
+                {
+                   after(elements[i], newNode)
+                }
+            }
+            /*比较是用于用id来找到一个dom元素；
+
+            * 这个大函数的思路就是先找到dom对象存储在一个数组里，然后再进行返回一个对象，然后就会有在这个对象里有很多方法，然后还有在返回的对象可以访问在这大函数中找到的dom元素，这个思路就是JQUERY的思路，思想很巧妙。学一下。
+            * */
+            Father:function y() {
+                for(var i=0;i<elements.length;i++)
+                {
+                    console.log(getFather(elements[i]));
+
+                }
+
+            }
+          /* //
+            function allBrother(elem) {
+//             var elems=[];
+               elems=elem.parentNode
+
+
+
+           }*/
+            CloneDom: function H() {
+                for(var i=0;i<elements.length;i++)
+                {
+                    console.log(getFather(elements[i]));
+
+                }
+            }
+
+                 getcss: function l(attr){for(var i=0;i<elements.length;i++){
+                     getStyle(elements[i], attr);
+                 }}
+              allBrother: function op() {
+                  for(var i=0;i<elements.length;i++)
+                  {
+                      console.log( allBrother(elements[i]));
+
+                  }
+
+              }
+        }
+    }
+    /**
+     * 在某个元素之前插入调用时候一般都是用id来调用所以尽管写成了一个数组仍然是只有一个dom对象
+     * 补充说明就是在某个元素插入删除是需要先找到他的父结点dom结点然后再调用在insertBefore
+     * 改变节点的数量时都必须应该调用父亲节点来进行改变*/
+    function before(elem, newNode) {
+        elem.parentNode.insertBefore(newNode, elem);
+    }
+    function after(elem, newNode) {
+        elem.parentNode.insertBefore(newNode, elem);
+    }
+
+
+    /**
+     * 查找指定元素的第一个孩子节点
+     * @param elem
+     */
+    function first(elem) {
+        elem = elem.firstChild;
+        return elem && elem.nodeType == 1 ? elem : next(elem);
+    }
+    /**
+     * 查找指定元素的最后一个孩子节点
+     * @param elem
+     */
+    function last(elem) {
+        elem = elem.lastChild;
+        return elem && elem.nodeType == 1 ? elem:prev(elem);
+    }
+    /**
+     * 返回指定的元素的前一个元素兄弟
+     * @param elem
+     * @return 指定的元素的前一个元素兄弟
+     */
+    function prev(elem)
+    {
+        for(var i=0;i<elem.length;i++)
+        {    elems=elem[i];
+            do {
+                elems = elems && elems.previousSibling;
+            } while (elems && elems.nodeType != 1);
+            console.log(elems);
+        }
+    }
+    // **
+    // * 返回指定的元素的下一个元素兄弟
+    // * @param elem
+    // * @return 指定的元素的下一个元素兄弟
+    //     */
+    function next(elem) {
+        for (var i = 0; i < elem.length; i++)
+        {
+            elems = elem[i];
+            do {
+                elems = elems && elems.nextSibling;
+            }
+            while (elems && elems.nodeType != 1);
+            console.log(elems);
+        }
+    }
+
+    //elem=elem&&elem.nextSibling;
+    //判断是否传值不存在elem没有赋值就是undefined可是最后return的对象就会使null因为null是object类型}
+    /**
+     * 查找指定元素的第一个孩子节点
+     * @param elem
+     */
+    function first(elem)
+    {
+
+        var t = [];
+        var elems;
+        for (var i = 0; i < elem.length; i++)
+        {
+            elems = elem[i].firstChild;
+            t.push(elem[i]);
+            console.log(elems && elems.nodeType == 1 ? elem : next(t));
+        }
+    }
+    //封装addEvent函数保证了所有dom元素都调用它，但是只有真正有动作的才会被产生相应的动作,这就是事件监听功能，如果没有这个addlisentener函数就直接调用你甚至没有点击就会调用函数所以必须要有这个函数
+    function addEvent(type,elem,fn)
+    {
+
+        if(elem.addEventListener)//ie8以上元素的这个属性是否成立，是一个事件监听是用于判断到底哪一个真正的发生了这个操作，因为会有一大堆数组中的元素，他们都会有自己的事件监听用于判断是否发生了这个操作才会对应发生这个动作，但是其实自己写的click函数不给元素绑定这个时间监听就不会智能判断你点击了哪一个，
+
+        {
+            elem.addEventListener(type,fn,false);
+        }
+
+
+        if(elem.attachEvent)//ie8以下
+        {
+            elem[type+fn]=function () //保证了elem的传递性同时可知每一个传入对象的fn自己成了一个新属性不会被覆盖
+            {
+                fn.call(elem);//回调找到自己的丢失对象
+            }
+
+            elem.attachEvent('on'+type,elem[type+fn]);
+        }
+        else
+        {
+            elem['on'+type]=fn();
+        }
+
+
+    }
+    function remove(type,elem,fn)
+    {
+
+        if(elem.removeEventListener)//ie8以上元素的这个属性是否成立，是一个事件监听是用于判断到底哪一个真正的发生了这个操作，因为会有一大堆数组中的元素，他们都会有自己的事件监听用于判断是否发生了这个操作才会对应发生这个动作，但是其实自己写的click函数不给元素绑定这个时间监听就不会智能判断你点击了哪一个，
+
+
+            elem.removeEventListener(type,fn,false);//fn是不相同的但是因为每一个都要找到他的对象和函数在ie能力测试时候，所以会有调用自己的那个确定对象同时发生函数的动作。因为不同函数绑定的对象不同所以针对不同的对象函数就会确定自己的对象执行自己的对象这样就不会产生覆盖问题，而且有可能是移除同一个对象的不同的函数
+
+
+
+        if(elem.detachEvent)//ie8以下
+
+
+
+            elem.detachEvent('on'+type,elem[type+fn]);//接触物体拥有的该动作的函数
+
+        else
+
+            elem['on'+type]=NULL;
+
+
+
+    }
+    //例如addEvent('click',obt1,fn2);
+    //addEvent('click',obt1,fn3);
+    //如果只在elem的添加属性为elem.fn=function{fn.call(elem);}
+    //就会产生覆盖elem.fn=后一个方法这样就只能移除一个方法了。
+    //var fn=function(){alert(123456789);}
+    //避免了不设置内联样式只能获取空字符串的问题
+    function getStyle(elem, attr) {
+        if(elem.currentStyle)
+        {//IE
+            return elem.currentStyle[attr];
+        }else if(window.getComputedStyle){
+            return getComputedStyle(elem, false)[attr];
+        }else{
+            return elem.style[attr];
+        }
+    }
+
+    /**
+     * Created by jiaoge on 2017/7/13.
+     */
+
+</script>
+</html>
