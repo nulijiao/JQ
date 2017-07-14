@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>放大镜</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #small, #big{
+            float: left;
+        }
+        #small{
+            width: 400px;
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+        #big{
+            width: 400px;
+            height: 400px;
+            overflow: hidden;
+            display: none;
+            position: relative;
+
+
+        }
+        #small img{
+            width: 400px;
+            height: 400px;
+        }
+        #drag{
+            width: 200px;
+            height: 200px;
+            background: #cccccc;
+            opacity: 0.5;
+            filter: alpha(opacity=50);
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+
+        }
+        #big img{
+            position: absolute;
+            top: 0;
+            left:600px;}
+
+        /*无论如何即使是绝对定位脱离文档流的元素渲染都是在父元素里（设置父元素是相对的relative那个），就是相对父元素来展示自己，只要设定了相对父元素，则在自己由于定位因素离开了会溢出相对的父元素则一定会有父元素设置了溢出隐藏，溢出隐藏会实现，但是父元素没有成为相对定位的，则会发现父元素的溢出隐藏不好使 ，同理由于浮动会使得自己一定是想相对于父元素，所以浮动的渲染过程中导致父元素溢出父元素设置了溢出隐藏就一定可行，会实现这就是绝对定位和浮动的区别。绝对定位看相对的那个祖先元素（就是最近的已经定位的祖先元素看渲染效果）元素，浮动就是单纯看父元素。点击小图big的div中的图片实现绝对定位,大图是800*800的*/
+        #mask{
+            width: 100%;
+            height: 100%;
+            background: #ff0000;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            filter: alpha(opacity=0);
+        }
+    </style>
+</head>
+<body>
+<div id="small">
+    <img src="img/1.jpg" alt="">
+    <div id="drag"></div>
+
+    <div id="mask"></div>
+</div>
+<div id="big">
+    <img src="img/2.jpg" alt="">
+</div>
+<script>
+    (function () {
+        var oSmall = document.getElementById("small");
+        var oDrag = document.getElementById("drag");
+        var oBig = document.getElementById("big");
+        var oBigImg = oBig.getElementsByTagName("img")[0];
+        var oMask = document.getElementById("mask");
+        oMask.onmouseover = function()
+        {
+            console.log("oSmall.onmouseover");
+            oDrag.style.display = "block";
+            oBig.style.display = "block";
+        };
+        oMask.onmouseout = function(){
+            console.log("oSmall.onmouseout");
+            oDrag.style.display = "none";
+            oBig.style.display = "none";
+        };
+        /*oDrag.onmouseover = function(){
+         console.log("oDrag.onmouseover");
+         };*/
+        oMask.onmousemove = function(e){
+            e = e || window.event;
+            var left = e.clientX - oDrag.offsetWidth / 2;
+            var top = e.clientY - oDrag.offsetHeight / 2;
+            //判断drag的边界范围
+            if(left <= 0){
+                left = 0;
+            }
+            if(top <= 0){
+                top = 0;
+            }
+            var maxX = oSmall.offsetWidth - oDrag.offsetWidth;
+            if(left >= maxX){
+                left = maxX;
+            }
+            var maxY = oSmall.offsetHeight - oDrag.offsetHeight;
+            if(top >= maxY){
+                top = maxY;
+            }
+            oDrag.style.left = left + "px";
+            oDrag.style.top = top + "px";
+
+
+            //改变大图的位置
+          var scaleX = left / maxX;
+//          这是比例系数因为小块的位置与bigdiv图片的位置是相对成比例的，就是一个向左一个向右，方向相反
+            var scaleY = top / maxY;
+
+            oBigImg.style.left = -scaleX * (oBigImg.offsetWidth - oBig.offsetWidth) + "px";
+          }
+
+
+
+    })();
+
+</script>
+</body>
+</html>
