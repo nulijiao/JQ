@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>my drag</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+        #div1{
+        background: red;
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        top:0;
+        left: 0;
+    }
+    #div2{
+        background: yellow;
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        top:100px;
+        left: 0;
+    }
+    #div3{
+        background: green;
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        top:200px;
+        left: 0;
+    }
+        #div4{
+            border-bottom:200px solid green;
+            border-left:200px solid red;
+            border-right:200px solid yellow;
+            border-top:200px solid #fff ;
+            /*border-top-style: opacity;*/
+            position: absolute;
+            top:300px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="div1"></div>
+<div id="div2"></div>
+<div id="div3"></div>
+<div id="div4"></div>
+<script>
+ var oDiv1=document.getElementById("div1");
+ var oDiv2=document.getElementById("div2");
+ var oDiv3=document.getElementById("div3");
+ drag(oDiv1);
+ drag(oDiv2);
+ drag(oDiv3);
+
+
+ function drag(elem)
+ {
+
+     elem.onmousedown=function (e) {
+//         因为在函数中涉及到了e就是我们需要把他作为函数的参数写上否则就会报错
+         e = e || window.event;
+         var iDisX = e.clientX - elem.offsetLeft;
+         var iDisY = e.clientY - elem.offsetTop;
+//先确定鼠标按下位置的坐标为后来元素定位确定一个一个位置，因为鼠标在点击物块以后的相对于物块的位置是不会发生变化的，然后再由于在此例子中初始位置就是鼠标点击的位置就是鼠标的点击位置坐标，但是并非有的元素是贴紧浏览器的，所以要用浏览器的坐标位置减去物块相对于浏览器或者某个你想要定位的元素来移动则就要用到offsetlef和offsettop这个值。
+         elem.onmousemove=function (e) {
+
+              elem.style.left=e.clientX-iDisX+"px";
+        elem.style.top=e.clientY-iDisY+"px";
+    }
+     }
+    elem.onmouseup=function () {
+        elem.onmousemove=null;
+//       当鼠标按下去的时候决定了不在移动物块，所以要清楚物块的onmouse事件
+    }
+
+ }
+
+
+
+</script>
+</body>
+</html>

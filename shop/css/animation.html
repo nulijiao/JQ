@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>move</title>
+    <style>
+        body{
+            position: relative;
+        }
+     #g{
+         width: 100px;
+         height: 100px;
+         background-color: red;
+         /*position: relative;*/
+         /*position:fixed;*/
+     }
+        #move{
+            width: 200px;
+            height: 50px;
+            background: #000;
+        }
+        /*总结如下：当我们的定位时候才使用top,left,而且默认的static是不定位，是不能用这些属性的，如果不定位可以考虑用margin等属性，现在可以着手封装一个自己的函数了，等属性而不设置定位*/
+    </style>
+</head>
+<body>
+<button id="move"></button>
+<div id="g"></div>
+
+<script>
+    var odiv=document.getElementById("g");
+    var obtn=document.getElementById("move");
+    var timer;
+//    timer=setInterval(function () { console.log(1);obtn.onclick(); console.log(2) },1000);
+
+//            fn();
+//
+
+    obtn.onclick=function () {
+//        odiv.style.marginLeft=(odiv.offsetLeft+50)+"px";
+//        odiv.style.marginTop=(odiv.offsetLeft+50)+"px";
+        odiv.style.left=(odiv.offsetLeft+50)+"px";
+        odiv.style.top=(odiv.offsetLeft+50)+"px";
+        if(odiv.offsetLeft>500)
+            clearInterval(timer);
+    }
+    console.log(2+6.8);
+
+    <!--利用定时器来移动-->
+//    谷歌浏览器的bug在于有的时候不识别100会在console.log里面输出0
+</script>
+</body>
+</html>

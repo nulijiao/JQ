@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>面向对象篇</title>
+</head>
+<body>
+<ul id="ed">
+    <li>1</li>4
+    <li>2</li>
+    <li>3</li>
+</ul>      <!--js中用function模拟类，因为js不支持类的概念在esc6以前-->
+</body>
+<script>
+    //类表示
+   /* var Cat=function (name) //叫做构造函数，对象先找对象构造函数中函数，然后找原型函数
+    {
+        this.name='mimi';
+        this.eat=function () {
+            console.log('8');
+
+        }
+    }*/
+    //定义一个类属性在构造函数中
+    //类方法放在原型中避免了多次创建函数导致内存崩溃,面向对象
+    //在js6中有class类；
+
+//    var cat4=new Cat();//创建实例对象
+//    //prototype原型：继承用
+//    Cat.prototype.eat=function () {
+//        console.log('9');
+//    }
+//    cat4.eat();
+    var oDiv=document.getElementById("ed");
+    remv(oDiv );
+    function remv(elem) {
+       var s=[];
+         s=elem.parentNode.children;
+         for(var i=0;i<s.length;i++)
+         {
+             console.log(s[i]);
+             console.log('9');
+         }
+       // console.log(s);
+    }
+</script>
+</html>

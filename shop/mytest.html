@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>my test</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+            border:0;
+        }
+        #d{
+            width: 300px;
+            height: 300px;
+            background-color: red;
+        }
+
+    </style>
+</head>
+<body>
+<ul id="ul">
+    <li class="aa"></li>
+    <li class="aa"></li>
+    <li class="aa"></li>
+</ul>
+<div id="d">123</div>
+<ul>
+    <li class="ee vv">1</li>
+    <li class="ee vv">2</li>
+    <li class=" vv">3</li>
+</ul>
+<button id="bt">点击</button>
+<script src="hy.js" >
+    var btn=document.getElementById('bt');
+    var fn=function ()
+    {
+   alert('666');
+    }
+
+    var fn=function ()
+    {
+        alert('233');
+    }
+    console.log(fn);
+    var obj
+    {
+        name:'li'
+
+    };
+    //obj.sex输出会显示undefined,即使没有定义这个属性
+    //判断存在用属性type不写on,可以输出整个数组
+    //全局范围内都是window的
+    //dom查找浪费性能
+    function addevent(elem,type,fn)
+    {
+        if(elem.addEventListener)
+
+        {elem.addEventListener('on'+type,fn,false);}
+        if(elem.attachEvent)
+        {elem.attachEvent('on'+type,function(){fn.call(elem);});}
+        //call函数改变当前函数的对象，第一个参数是改变后的对象，调用call函数的函数会得到自己的当前对象例如fn.call();fn的对象是call第一个参数，因为在ie中obt.onclick对象不是btn是window，所以调用call函数返回自己的对象为btn
+     //ie中事件绑定后对象总是会认为是window对象丢失状况，所以要调用函数找回原来的对象
+    //
+    }
+    var sad=[];
+
+    window.onload=function(){
+        sad=$('.ee');
+
+        for(var i=0;i<sad.length;i++)
+        {
+            console.log(sad[i].innerHTML);
+
+        }
+
+    }
+    function bt() {
+       alert('哈哈哈') ;
+
+    }
+    //jQuery链式操作，选中一次在基础上进行操作，解决了dom查找浪费性能。
+</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>脱离文档流测试</title>
+    <style>
+     span{
+         display:inline-block;
+         border:1px solid blue;
+         width:30%;
+         height:200px;
+         margin-left: 30px;
+  float:right;
+         background-color: #fa558f;
+         opacity: 0.5;
+     }
+        div{
+            background-color: black;
+            width: 200px;
+            height: 200px;
+
+        }
+    </style>
+</head>
+<body>
+<span>1</span>
+<span>2</span>
+<span>3</span>
+<div></div>
+</body>
+</html>,
+<!--脱离文档流的物体渲染效果也不会因为是脱离了文档流就会覆盖某一些元素，例如某个元素在最右边而另一个元素浮动到右面就会看最右面有没有自己的位置，没有的话就在浮动的就在最右面物块的下面，但是绝对不会覆盖，地方够浮动就在最右面,如果有一个浮动的物体在右面，但是又有在下面物体一个也浮动，仍然不会产生后浮动的那个覆盖之前的那个，注意不脱离文档流的物体不会被脱离文档流的物体覆盖，两个相同的浮动也无法覆盖，但是一个上面的元素脱离文档流，下面的不脱离就会来浮上来抢占脱离文档流物体的地方，脱离文档流的优势低相对于不脱离的，同样脱离文档流的物体渲染优势相同-->

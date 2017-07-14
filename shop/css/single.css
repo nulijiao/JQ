@@ -1,0 +1,258 @@
+#single{
+    height: 650px;
+    margin-top: 50px;
+    position: relative;
+}
+#single-pic{
+    width: 494px;
+    height: 567px;
+    overflow: hidden;
+    position: relative;
+    /*不是不好使是因为儿子元素的宽度大于父亲。在总体的父元素设置了一个溢出隐藏就能够实现儿子隐藏可是为什么儿子设置了溢出隐藏极不好使*/
+}
+#single-description{
+    width: 570px;
+    height: 612px;
+    margin-left: 30px;
+}
+#single-pic .big-pic{
+    padding: 6px;
+    border: 1px solid #ccc;
+    position: relative;
+}
+/*#single-pic  #changeBig1*/
+/*{position: relative;*/
+    /*width: 480px;*/
+    /*height: 400px;*/
+    /*overflow: hidden;*/
+    /*display: none;*/
+    /*float: left;*/
+
+
+/*}*/
+#drag{
+    width: 200px;
+    height: 200px;
+    background: #cccccc;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    cursor: pointer;
+
+}
+#single  img.changebig{
+    width: 960px;
+    height: 800px;
+    position: absolute;
+}
+ #changeBig1
+{
+    width: 480px;
+    height: 400px;
+    overflow: hidden;
+    display: none;
+    /*float: left;*/
+    /*margin-right: 200px;*/
+   /*position: relative;*/
+    position: absolute;
+    top:0;
+    left:600px;
+
+
+}
+  #changeBig2{
+/*{position: relative;*/
+    width: 480px;
+    height: 400px;
+    overflow: hidden;
+    display: none;
+    /*float: left;*/
+    position: absolute;
+    top:0;
+    left:600px;
+
+
+}
+/*#changeBig21{*/
+    /*position: absolute;*/
+    /*top:0;*/
+    /*left:600px;*/
+/*}*/
+ #changeBig3{
+/*{position: relative;*/
+    width: 480px;
+    height: 400px;
+    overflow: hidden;
+    display: none;
+    /*float: left;*/
+    position: absolute;
+    top:0;
+    left:600px;
+
+
+}
+  #changeBig4{
+/*{position: relative;*/
+    width: 480px;
+    height: 400px;
+    overflow: hidden;
+    display: none;
+    /*float: left;*/
+    position: absolute;
+    top:0;
+    left:600px;
+
+
+}
+#single-pic .big-pic img{
+    width: 480px;
+    height: 400px;
+    /*display: none;*/
+}
+#single-pic .big-pic span.arrow{
+    width: 30px;
+    height: 30px;
+   position:absolute;
+  font-size: larger;
+    cursor:pointer;
+    background-color: #464646;
+    opacity: 0.5;
+    text-align: center;
+    line-height: 30px;
+    color:white;
+
+}
+#left{
+    top:50%;
+    left:2%;
+}
+#right{
+    top:50%;
+    right:2%;
+}
+
+#single-pic .small-pic{
+    width: 800px;
+    height: 133px;
+    margin-top: 10px;
+    overflow: hidden;
+    position: relative;
+
+}
+#single-pic #big{
+    position: relative;
+}
+/*#single-pic .small-pic img.selected{*/
+   /*border:1px solid black;*/
+/*我的错觉在于并不是设置了classname=""以后还有之前的样式，而是之前的样式并不适用class来写样式的，而且在一个项目中如果存在有一个事件后会有在原来的基础上增加一个新的样式则基础样式用标签选择器，而另一个级增加的样式就用class选择器这样就不会丢失样式，否则设置了空字符串以后class就没有了}*/
+#single-pic .small-pic img{
+    width: 150px;
+    height: 125px;
+    border: 1px solid #ccc;
+    padding: 3px;
+    float: left;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+#single-pic .small-pic img.selected{
+    border:1px solid black;
+}
+#single-description .lip{
+    color: #999;
+    font-size: 12px;
+}
+#single-description .price{
+    color: #fa558f;
+    font-size: 30px;
+    margin: 30px 0;
+}
+#single-description .num{
+    width: 50px;
+    height: 37px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    text-indent: 10px;
+    margin-left: 20px;
+}
+.add{
+    width: 156px;
+    height: 40px;
+    background: #3c3b3b;
+    color: #fff;
+    border-color: #3C3B3B;
+    outline: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 20px 0;
+}
+.add:hover {
+    background: #ffffff;
+    color: #000;
+}
+#single-description .brand{
+    width: 570px;
+    height: 106px;
+    border-top: 1px solid #f00;
+    border-bottom: 1px solid #f00;
+    line-height: 50px;
+}
+#single-description .brand span{
+    color: #999;
+}
+#single-description .brand a {
+    color: #ff530d;
+}
+#single-description .description{
+    color: #999;
+    font-size: 12px;
+    line-height: 20px;
+}
+#single-description h4{
+    margin: 20px 0;
+}
+
+#dependence{
+    height: 424px;
+}
+#dependence h3{
+    background: #F3F3F3;
+}
+#dependence .product-info{
+    width: 285px;
+    height: 344px;
+    float: left;
+}
+#dependence img{
+    width: 255px;
+    height: 255px;
+}
+#dependence .product-info{
+    text-align: center;
+}
+#dependence .btn{
+    width: 110px;
+    height: 34px;
+}
+#dependence h4{
+    cursor: pointer;
+}
+#dependence h4:hover{
+    color: #ff530d;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<ul id="ed">
+<li>1</li>
+<li>2</li>
+<li>3</li>
+</ul>
+</body>
+<script>
+    var oDiv=document.getElementById("ed");
+    remv(oDiv );
+    function remv(elem) {
+        var s=[];
+        s=elem.parentNode.children;
+        for(var i=0;i<s.length;i++)
+        {
+            console.log(s[i]);
+            console.log('9');
+        }
+        // console.log(s);
+    }
+</script>
+</html>
