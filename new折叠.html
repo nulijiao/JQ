@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        li{
+            list-style: none;
+        }
+        #container{
+            width: 200px;
+            border: 1px solid #000;
+            text-align: center;
+        }
+        #container h3{
+            background: #000000;
+            color: #fff;
+            cursor: pointer;
+        }
+        .aa{
+            display: block;
+        }
+        #container .submenu li:hover{
+            background: #cccccc;
+        }
+        #container .submenu{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<ul id="container">
+    <li>
+        <h3>管理区</h3>
+        <ul class="submenu">
+            <li>001</li>
+            <li>002</li>
+            <li>003</li>
+        </ul>
+    </li>
+    <li>
+        <h3>交流区</h3>
+        <ul class="submenu">
+            <li>001</li>
+            <li>002</li>
+            <li>003</li>
+        </ul>
+    </li>
+</ul>
+</body>
+<script  src="jquery-1.11.2.js"></script>
+<script>
+$(function(){$("h3").on("click",function () {
+    // function()
+    console.log($(this).next().eq(0).attr("display"));
+    /* if(!$(this).next().prop("display"))
+     {
+     $(this).next().slideDown(1000);
+     $(this).next().prop("state",1);
+
+     }
+     else{
+     $(this).next().slideUp(1000);
+     $(this).next().prop("state",1);
+     }
+     */
+
+    $(this).next().stop().slideToggle(1000);
+})
+
+});
+
+
+</script>
+</html>
